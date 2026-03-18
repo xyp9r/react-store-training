@@ -38,6 +38,24 @@ export default function App() {
     setCart([]); // Просто кладем пустой массив, и это всё, реакт сам сотрет список с экрана
   };
 
+  // Удаление конкретной игры по её ID
+  const removeFromCart = (gameId) => {
+
+    const existingGame = cart.find((item) => item.id === gameId);
+
+    if (existingGame.count > 1) {
+      // Если их больше одинЮ промегаемся мапом и убавляем count
+      const updatedCart = cart.map((item) =>
+        item.id === gameId ? {...item, count: item.count - 1} : item
+        );
+      setCart(updatedCart);
+    } else {
+    // filther возвращает новый массив в котором нет игры с переданным gameid
+    const updatedCart = cart.filter((item) => item.id !== gameId);
+    setCart(updatedCart);
+      }
+  };
+
   // Математика: Считаем общее количество игр в корзине ( суммируем все count)
   const totalItems = cart.reduce((sum, item) => sum + item.count, 0);
 
@@ -69,6 +87,7 @@ export default function App() {
         totalPrice={totalPrice}
         cart={cart}
         clearCart={clearCart}
+        removeFromCart={removeFromCart}
       />
 
       {/* ВИТРИНА */}

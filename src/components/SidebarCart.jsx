@@ -1,6 +1,6 @@
 // Файл: components/SidebarCart.jsx
 
-export default function SidebarCart({ isCartOpen, setIsCartOpen, totalItems, totalPrice, cart, clearCart }) {
+export default function SidebarCart({ isCartOpen, setIsCartOpen, totalItems, totalPrice, cart, clearCart, removeFromCart }) {
   return (
     <div style={{
       position: 'fixed',
@@ -32,12 +32,24 @@ export default function SidebarCart({ isCartOpen, setIsCartOpen, totalItems, tot
           <div style={{ marginTop: '20px' }}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
               {cart.map(item => (
-                  <div key={item.id} style={{ borderBottom: '1px solid #333', paddingBottom: '10px' }}>
+                  <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #333', paddingBottom: '10px' }}>
+
+                    {/* Инфа об игре */}
+                    <div>
                     <div style={{ color: '#fff' }}>{item.title}</div>
                     <div style={{ fontSize: '12px', color: '#888', marginTop: '5px' }}>
                       x{item.count} - ${item.price * item.count}
                     </div>
                   </div>
+
+                  {/* Кнопка удаления конкретной игры */}
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    style={{ background: 'transparent', border: 'none', color: '#f44336', cursor: 'pointer', fontSize: '16px', padding: '5px' }}
+                  >
+                      ✖
+                    </button>
+                    </div>
                   ))}
             </div>
 
